@@ -1,0 +1,24 @@
+{
+  "name": "testrestapi",
+  "version": "1.0.0",
+  "description": "latihan rest api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Foster13/testrestapi.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "nodejs"
+  ],
+  "author": "jaja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Foster13/testrestapi/issues"
+  },
+  "homepage": "https://github.com/Foster13/testrestapi#readme"
+}
