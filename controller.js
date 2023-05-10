@@ -64,3 +64,17 @@ exports.ubahMhs = function(req, res){
             }
     });
 };
+
+//menghapus data berdasarkan ID
+exports.hapusMhs = function(req, res){
+    var id_mhs = req.body.id_mhs;
+
+    connection.query('DELETE FROM tes WHERE id_mhs=?', [id_mhs],
+        function(error, rows, fields){
+            if(error){
+                console.log(error);
+            }else {
+                response.ok("Berhasil menghapus", res);
+            }
+    });
+};
