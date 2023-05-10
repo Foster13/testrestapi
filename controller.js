@@ -22,12 +22,12 @@ exports.tampilsemuamhs = function(req, res){
 exports.tampilberdasarkanid = function(req, res){
     let id = req.params.id;
     connection.query('SELECT * FROM tes WHERE id_mhs = ?', [id], 
-    function(error, rows, fields){
-        if(error){
-            console.log(error);
-        }else{
-            response.ok(rows, res)
-        }
+        function(error, rows, fields){
+            if(error){
+                console.log(error);
+            }else{
+                response.ok(rows, res)
+            }
     });
 };
 
@@ -39,11 +39,28 @@ exports.tambahMhs = function(req, res){
     
     connection.query("INSERT INTO tes (nim, nama, jurusan) VALUES (?,?,?)",
     [nim, nama, jurusan],
-    function(error, rows, fields){
-        if(error){
-            console.log(error);
-        }else {
-            response.ok("Berhasil menambahkan", res);
-        }
+        function(error, rows, fields){
+            if(error){
+                console.log(error);
+            }else {
+                response.ok("Berhasil menambahkan", res);
+            }
+    });
+};
+
+//mengubah data berdasarkan ID
+exports.ubahMhs = function(req, res){
+    var id_mhs = req.body.id_mhs;
+    var nim = req.body.nim;
+    var nama = req.body.nama;
+    var jurusan = req.body.jurusan;
+
+    connection.query('UPDATE tes SET nim=?, nama=?, jurusan=? WHERE id_mhs=?',[nim, nama, jurusan, id_mhs],
+        function(error, rows, fields){
+            if(error){
+                console.log(error);
+            }else {
+                response.ok("Berhasil mengubah", res);
+            }
     });
 };
