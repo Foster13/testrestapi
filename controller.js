@@ -17,3 +17,16 @@ exports.tampilsemuamhs = function(req, res){
         }
     });
 };
+
+//tampil semua data mhs berdasarkan ID
+exports.tampilberdasarkanid = function(req, res){
+    let id = req.params.id;
+    connection.query('SELECT * FROM tes WHERE id_mhs = ?', [id], 
+    function(error, rows, fields){
+        if(error){
+            console.log(error);
+        }else{
+            response.ok(rows, res)
+        }
+    });
+};
