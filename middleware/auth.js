@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var md5 = require('md5');
 var response = require('../rest'); //seharusnya nama file res.js
 var jwt = require('jsonwebtoken');
-var config = require('./config/secret.js');
+var config = require('../config/secret');
 var ip = require('ip');
 
 //controller utk register
@@ -16,7 +16,7 @@ exports.registrasi = function(req, res){
         tgl_daftar: new Date()
     }
 
-    var query = "SELECT email FROM ?? WHERE ??";
+    var query = "SELECT email FROM ?? WHERE ??=?";
     var table = ["user", "email", post.email];
 
     query = mysql.format(query, table);
@@ -38,7 +38,7 @@ exports.registrasi = function(req, res){
                     }
                 });
             } else { //jika sudah ada
-                response.ok("Email sudah ada!");
+                response.ok("Email sudah ada!", res);
             }
         }
     })
