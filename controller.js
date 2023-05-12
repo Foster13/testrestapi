@@ -78,3 +78,16 @@ exports.hapusMhs = function(req, res){
             }
     });
 };
+
+//tampil matakuliah group
+exports.tampilgroupmatkul = function(req, res){
+    connection.query('SELECT tes.id_mhs, tes.nim, tes.nama, tes.jurusan, matakuliah.matakuliah, matakuliah.sks FROM krs JOIN matakuliah JOIN tes WHERE krs.id_matkul = matakuliah.id_matkul AND krs.id_mhs = tes.id_mhs ORDER BY tes.id_mhs;',
+        function(error, rows, fields){
+            if(error){
+                console.log(error);
+            } else{
+                response.oknested(rows, res);
+            }
+        }
+    )
+}

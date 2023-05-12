@@ -16,5 +16,7 @@ module.exports = function(app){
         .put(jsonku.ubahMhs);
     app.route('/hapus')
         .delete(jsonku.hapusMhs);
+    app.route('/tampilmatakuliah')
+        .get(jsonku.tampilgroupmatkul);
 
 };
