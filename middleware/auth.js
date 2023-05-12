@@ -43,3 +43,53 @@ exports.registrasi = function(req, res){
         }
     })
 }
+
+//controller utk login
+exports.login = function(req, res){
+    var post = {
+        password: req.body.password,
+        email: req.body.email
+    }
+
+//ketika login benar, lalu cek 1 dan jwt buat token yg jangka waktu 1000s
+    var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
+    var table = ["user", "password", md5(post.password), "email", post.email];
+
+    query = mysql.format(query, table);
+    connection.query(query, function(error, rows){
+        if(error){
+            console.log(error);
+        } else{
+            if(rows.length == 1){ //buat token dng jwt yg dl 1000s
+                var token = jwt.sign({rows}, config.secret, {expiresIn: 1000});
+                id_user = rows[0].id;
+
+                var data = { //tampung data
+                    id_user: id_user,
+                    access_token: token,
+                    ip_address: ip.address() //ngecek ip gadget lokal
+                }
+//jika data tertampung di var data, lalu dimasukkan di tabel akses_token
+                var query = "INSERT INTO ?? SET ?";
+                var table = ["akses_token"];
+
+//jika berhasil menginput data token ke akses_token, json menampilkan bahwa Token JWT Tergenerate
+                query = mysql.format(query, table);
+                connection.query(query, data, function(error, rows){
+                    if(error){
+                        console.log(error);
+                    } else{
+                        res.json({
+                            success: true,
+                            message: 'Token JWT tergenerate',
+                            token: token,
+                            currUser: data.id_user
+                        });
+                    }
+                });
+            } else{
+                res.json({"ERROR": true, "Message": "Email/password salah"});
+            }
+        }
+    });
+}
